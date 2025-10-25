@@ -34,6 +34,9 @@ RUN pip install chatterbox-tts --no-deps
 # Copy only the demo scripts we need
 COPY gradio_tts_app.py gradio_vc_app.py example_tts.py start_both_services.py script_parser.py script_reader_app.py ./
 
+# Copy SSL certificates for HTTPS support
+COPY cert.pem key.pem ./
+
 # Create directory for generated audio files
 RUN mkdir -p /app/outputs
 

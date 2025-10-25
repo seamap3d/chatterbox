@@ -337,4 +337,11 @@ with gr.Blocks(title="🎬 Film Script Reader & TTS Converter", theme=gr.themes.
     )
 
 if __name__ == "__main__":
-    app.launch(server_name="0.0.0.0", server_port=7862, share=True)
+    app.launch(
+        server_name="0.0.0.0", 
+        server_port=7862, 
+        share=True,
+        ssl_keyfile="key.pem",
+        ssl_certfile="cert.pem",
+        ssl_verify=False
+    )
