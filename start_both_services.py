@@ -44,9 +44,9 @@ def main():
     
     print("✅ All services started!")
     print("=" * 50)
-    print("🎤 TTS Service (Text-to-Speech):     http://kaizen:7860")
-    print("🔄 VC Service (Voice Conversion):    http://kaizen:7861")
-    print("🎬 Script Reader (PDF to Speech):    http://kaizen:7862")
+    print("🎤 TTS Service (Text-to-Speech):     https://kaizen:7860")
+    print("🔄 VC Service (Voice Conversion):    https://kaizen:7861")
+    print("🎬 Script Reader (PDF to Speech):    https://kaizen:7862")
     print("=" * 50)
     print("Press Ctrl+C to stop all services")
     
