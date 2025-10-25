@@ -32,13 +32,13 @@ RUN pip install librosa==0.11.0 s3tokenizer torch==2.6.0 torchaudio==2.6.0 trans
 RUN pip install chatterbox-tts --no-deps
 
 # Copy only the demo scripts we need
-COPY gradio_tts_app.py gradio_vc_app.py example_tts.py ./
+COPY gradio_tts_app.py gradio_vc_app.py example_tts.py start_both_services.py ./
 
 # Create directory for generated audio files
 RUN mkdir -p /app/outputs
 
-# Expose port for Gradio interface
-EXPOSE 7860
+# Expose ports for both Gradio interfaces
+EXPOSE 7860 7861
 
-# Set default command to run the Gradio TTS app
-CMD ["python", "gradio_tts_app.py"]
+# Set default command to run both services
+CMD ["python", "start_both_services.py"]

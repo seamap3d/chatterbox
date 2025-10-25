@@ -7,7 +7,8 @@ services:
       dockerfile: Dockerfile
     container_name: chatterbox-tts
     ports:
-      - "7860:7860"
+      - "7860:7860"  # TTS Service
+      - "7861:7861"  # Voice Conversion Service
     volumes:
       - ./outputs:/app/outputs
       - ./examples:/app/examples
