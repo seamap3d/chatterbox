@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  chatterbox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chatterbox-tts
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./outputs:/app/outputs
+      - ./examples:/app/examples
+    environment:
+      - CUDA_VISIBLE_DEVICES=0,1  # Use both GPUs, adjust as needed
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
+  # Alternative service for running examples
+  chatterbox-example:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chatterbox-example
+    volumes:
+      - ./outputs:/app/outputs
+      - ./examples:/app/examples
+    environment:
+      - CUDA_VISIBLE_DEVICES=0,1
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    command: python example_tts.py
+    profiles:
+      - example
