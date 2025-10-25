@@ -48,7 +48,7 @@ def process_script_pdf(pdf_file):
 **👥 Characters:**
 """
         for char, stats in summary['characters'].items():
-            summary_text += f"- **{char}**: {stats['line_count']} lines, {stats['total_words']} words\n"
+            summary_text += f"- **{char}**: {stats['line_count']} lines, {stats['total_words']} words\\n"
         
         return summary_text, script_data
         
@@ -112,9 +112,9 @@ def update_character_display(script_data):
     if len(characters) >= 1:
         char_name = characters[0]
         dialogue_lines = script_data[char_name]
-        preview_text = "\n".join(dialogue_lines[:3])
+        preview_text = "\\n".join(dialogue_lines[:3])
         if len(dialogue_lines) > 3:
-            preview_text += f"\n... and {len(dialogue_lines) - 3} more lines"
+            preview_text += f"\\n... and {len(dialogue_lines) - 3} more lines"
         
         updates.extend([
             gr.update(visible=True, value=f"### 🎭 {char_name} ({len(dialogue_lines)} lines)"),
@@ -129,9 +129,9 @@ def update_character_display(script_data):
     if len(characters) >= 2:
         char_name = characters[1]
         dialogue_lines = script_data[char_name]
-        preview_text = "\n".join(dialogue_lines[:3])
+        preview_text = "\\n".join(dialogue_lines[:3])
         if len(dialogue_lines) > 3:
-            preview_text += f"\n... and {len(dialogue_lines) - 3} more lines"
+            preview_text += f"\\n... and {len(dialogue_lines) - 3} more lines"
         
         updates.extend([
             gr.update(visible=True, value=f"### 🎭 {char_name} ({len(dialogue_lines)} lines)"),
@@ -146,9 +146,9 @@ def update_character_display(script_data):
     if len(characters) >= 3:
         char_name = characters[2]
         dialogue_lines = script_data[char_name]
-        preview_text = "\n".join(dialogue_lines[:3])
+        preview_text = "\\n".join(dialogue_lines[:3])
         if len(dialogue_lines) > 3:
-            preview_text += f"\n... and {len(dialogue_lines) - 3} more lines"
+            preview_text += f"\\n... and {len(dialogue_lines) - 3} more lines"
         
         updates.extend([
             gr.update(visible=True, value=f"### 🎭 {char_name} ({len(dialogue_lines)} lines)"),
