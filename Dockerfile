@@ -27,18 +27,18 @@ WORKDIR /app
 # Install numpy first to help with pkuseg build issues
 RUN pip install numpy
 # Try installing all dependencies except pkuseg first
-RUN pip install librosa==0.11.0 s3tokenizer torch==2.6.0 torchaudio==2.6.0 transformers==4.46.3 diffusers==0.29.0 resemble-perth==1.0.1 conformer==0.3.2 safetensors==0.5.3 gradio
+RUN pip install librosa==0.11.0 s3tokenizer torch==2.6.0 torchaudio==2.6.0 transformers==4.46.3 diffusers==0.29.0 resemble-perth==1.0.1 conformer==0.3.2 safetensors==0.5.3 gradio PyPDF2 soundfile
 # Then try to install chatterbox-tts without dependencies
 RUN pip install chatterbox-tts --no-deps
 
 # Copy only the demo scripts we need
-COPY gradio_tts_app.py gradio_vc_app.py example_tts.py start_both_services.py ./
+COPY gradio_tts_app.py gradio_vc_app.py example_tts.py start_both_services.py script_parser.py script_reader_app.py ./
 
 # Create directory for generated audio files
 RUN mkdir -p /app/outputs
 
-# Expose ports for both Gradio interfaces
-EXPOSE 7860 7861
+# Expose ports for all Gradio interfaces
+EXPOSE 7860 7861 7862
 
 # Set default command to run both services
 CMD ["python", "start_both_services.py"]

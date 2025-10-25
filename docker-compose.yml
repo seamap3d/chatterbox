@@ -9,6 +9,7 @@ services:
     ports:
       - "7860:7860"  # TTS Service
       - "7861:7861"  # Voice Conversion Service
+      - "7862:7862"  # Script Reader Service
     volumes:
       - ./outputs:/app/outputs
       - ./examples:/app/examples

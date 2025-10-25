@@ -36,12 +36,19 @@ def main():
     # Start Voice Conversion service on port 7861
     vc_process = start_service("gradio_vc_app.py", 7861, "Voice Conversion Service")
     
-    print("✅ Both services started!")
+    # Wait a moment before starting the third service
+    time.sleep(3)
+    
+    # Start Script Reader service on port 7862
+    script_process = start_service("script_reader_app.py", 7862, "Script Reader Service")
+    
+    print("✅ All services started!")
     print("=" * 50)
     print("🎤 TTS Service (Text-to-Speech):     http://kaizen:7860")
     print("🔄 VC Service (Voice Conversion):    http://kaizen:7861")
+    print("🎬 Script Reader (PDF to Speech):    http://kaizen:7862")
     print("=" * 50)
-    print("Press Ctrl+C to stop both services")
+    print("Press Ctrl+C to stop all services")
     
     try:
         # Keep the script running and monitor processes
@@ -49,12 +56,16 @@ def main():
             # Check if processes are still running
             tts_poll = tts_process.poll()
             vc_poll = vc_process.poll()
+            script_poll = script_process.poll()
             
             if tts_poll is not None:
                 print(f"⚠️  TTS service exited with code {tts_poll}")
                 break
             if vc_poll is not None:
                 print(f"⚠️  VC service exited with code {vc_poll}")
+                break
+            if script_poll is not None:
+                print(f"⚠️  Script Reader service exited with code {script_poll}")
                 break
                 
             time.sleep(1)
@@ -64,7 +75,7 @@ def main():
         
     finally:
         # Clean up processes
-        for process, name in [(tts_process, "TTS"), (vc_process, "VC")]:
+        for process, name in [(tts_process, "TTS"), (vc_process, "VC"), (script_process, "Script Reader")]:
             if process.poll() is None:
                 print(f"Terminating {name} service...")
                 process.terminate()
