@@ -1,5 +1,5 @@
 # Use PyTorch base image that we know works with GPU access
-FROM pytorch/pytorch:2.0.1-cuda11.7-cudnn8-devel
+FROM pytorch/pytorch:2.1.0-cuda11.8-cudnn8-devel
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -23,14 +23,16 @@ RUN pip install --upgrade pip
 # Set working directory
 WORKDIR /app
 
-# Copy local files and install dependencies manually to avoid pkuseg issues
-COPY . .
+# Install chatterbox-tts from PyPI - this handles all dependencies automatically
+# Install numpy first to help with pkuseg build issues
+RUN pip install numpy
+# Try installing all dependencies except pkuseg first
+RUN pip install librosa==0.11.0 s3tokenizer torch==2.6.0 torchaudio==2.6.0 transformers==4.46.3 diffusers==0.29.0 resemble-perth==1.0.1 conformer==0.3.2 safetensors==0.5.3 gradio
+# Then try to install chatterbox-tts without dependencies
+RUN pip install chatterbox-tts --no-deps
 
-# Install core dependencies first
-RUN pip install numpy torch torchaudio transformers diffusers safetensors gradio librosa
-
-# Install the local package without dependencies to avoid pkuseg
-RUN pip install -e . --no-deps
+# Copy only the demo scripts we need
+COPY gradio_tts_app.py gradio_vc_app.py example_tts.py ./
 
 # Create directory for generated audio files
 RUN mkdir -p /app/outputs
