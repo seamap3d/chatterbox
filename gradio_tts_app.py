@@ -91,7 +91,7 @@ if __name__ == "__main__":
         max_size=50,
         default_concurrency_limit=1,
     ).launch(
-        share=True, 
+        share=False,  # Keep private - no public tunnel
         server_name="0.0.0.0", 
         server_port=7860,
         ssl_keyfile="key.pem",

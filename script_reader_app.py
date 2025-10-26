@@ -340,7 +340,7 @@ if __name__ == "__main__":
     app.launch(
         server_name="0.0.0.0", 
         server_port=7862, 
-        share=True,
+        share=False,  # Keep private - no public tunnel
         ssl_keyfile="key.pem",
         ssl_certfile="cert.pem",
         ssl_verify=False
