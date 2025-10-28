@@ -9,9 +9,9 @@ echo "Chatterbox Services Test Suite"
 echo "=================================================="
 
 # Check if pytest is installed
-if ! command -v pytest &> /dev/null; then
+if ! python3 -m pytest --version &> /dev/null; then
     echo "❌ pytest not found. Installing test dependencies..."
-    pip install -r tests/requirements.txt
+    python3 -m pip install --user -r tests/requirements.txt
 fi
 
 # Check if Docker is running
@@ -33,7 +33,7 @@ echo "✅ Prerequisites met. Running tests..."
 echo ""
 
 # Run tests with verbose output
-pytest tests/test_services.py -v --tb=short
+python3 -m pytest tests/test_services.py -v --tb=short
 
 TEST_EXIT_CODE=$?
 
