@@ -26,8 +26,8 @@ WORKDIR /app
 # Install chatterbox-tts from PyPI - this handles all dependencies automatically
 # Install numpy first to help with pkuseg build issues
 RUN pip install numpy
-# Try installing all dependencies except pkuseg first
-RUN pip install librosa==0.11.0 s3tokenizer torch==2.6.0 torchaudio==2.6.0 transformers==4.46.3 diffusers==0.29.0 resemble-perth==1.0.1 conformer==0.3.2 safetensors==0.5.3 gradio PyPDF2 soundfile
+# Install dependencies (excluding torch/torchaudio since they come with base image)
+RUN pip install librosa==0.11.0 s3tokenizer transformers==4.46.3 diffusers==0.29.0 resemble-perth==1.0.1 conformer==0.3.2 safetensors==0.5.3 gradio PyPDF2 soundfile
 # Then try to install chatterbox-tts without dependencies
 RUN pip install chatterbox-tts --no-deps
 
