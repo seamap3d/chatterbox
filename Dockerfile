@@ -30,9 +30,12 @@ RUN pip install numpy
 RUN pip install librosa==0.11.0 s3tokenizer transformers==4.46.3 diffusers==0.29.0 resemble-perth==1.0.1 conformer==0.3.2 safetensors==0.5.3 gradio PyPDF2 soundfile
 # Then try to install chatterbox-tts without dependencies
 RUN pip install chatterbox-tts --no-deps
+# Install Tortoise TTS (fast fork) and its vocoder dependency
+RUN pip install git+https://github.com/152334H/tortoise-tts-fast.git \
+    && pip install git+https://github.com/152334H/BigVGAN.git
 
 # Copy only the demo scripts we need
-COPY gradio_tts_app.py gradio_vc_app.py example_tts.py start_both_services.py script_parser.py script_reader_app.py ./
+COPY gradio_tts_app.py gradio_vc_app.py example_tts.py start_both_services.py script_parser.py script_reader_app.py script_reader_tortoise_app.py ./
 
 # Copy SSL certificates for HTTPS support
 COPY cert.pem key.pem ./
@@ -41,7 +44,7 @@ COPY cert.pem key.pem ./
 RUN mkdir -p /app/outputs
 
 # Expose ports for all Gradio interfaces
-EXPOSE 7860 7861 7862
+EXPOSE 7860 7861 7862 7863
 
 # Set default command to run both services
 CMD ["python", "start_both_services.py"]

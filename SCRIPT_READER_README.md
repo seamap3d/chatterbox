@@ -35,6 +35,12 @@ In addition to the original TTS and Voice Conversion capabilities, this version 
 - Download audio files for each character
 - **Access:** http://kaizen:7862
 
+### 4. 🎬 Script Reader (Tortoise TTS)
+- Same script analysis and character assignment flow
+- Tortoise TTS backend (quality-focused preset by default)
+- Assign characters to voice samples via dropdown
+- **Access:** http://kaizen:7863
+
 ## 📋 Quick Start
 
 ### Prerequisites
@@ -61,10 +67,20 @@ In addition to the original TTS and Voice Conversion capabilities, this version 
    python3 test_services.py
    ```
 
+### 🧪 Tortoise Script Reader (optional)
+This app is a parallel version that uses Tortoise TTS. Install its deps in the same environment, then run:
+
+```bash
+python3 script_reader_tortoise_app.py
+```
+
+It listens on port 7863 and requires the `tortoise-tts-fast` package (plus its dependencies).
+
 ### 🌐 Access URLs
 - **TTS Service:** http://kaizen:7860
 - **Voice Conversion:** http://kaizen:7861  
 - **Script Reader:** http://kaizen:7862
+- **Script Reader (Tortoise):** http://kaizen:7863
 
 ## 🎭 Script Reader Detailed Usage
 

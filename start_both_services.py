@@ -41,12 +41,23 @@ def main():
     
     # Start Script Reader service on port 7862
     script_process = start_service("script_reader_app.py", 7862, "Script Reader Service")
+
+    # Wait a moment before starting the Tortoise script reader
+    time.sleep(3)
+
+    # Start Tortoise Script Reader service on port 7863
+    tortoise_script_process = start_service(
+        "script_reader_tortoise_app.py",
+        7863,
+        "Script Reader Service (Tortoise)",
+    )
     
     print("✅ All services started!")
     print("=" * 50)
     print("🎤 TTS Service (Text-to-Speech):     http://kaizen:7860")
     print("🔄 VC Service (Voice Conversion):    http://kaizen:7861")
     print("🎬 Script Reader (PDF to Speech):    http://kaizen:7862")
+    print("🎬 Script Reader (Tortoise TTS):     http://kaizen:7863")
     print("=" * 50)
     print("Press Ctrl+C to stop all services")
     
@@ -57,6 +68,7 @@ def main():
             tts_poll = tts_process.poll()
             vc_poll = vc_process.poll()
             script_poll = script_process.poll()
+            tortoise_poll = tortoise_script_process.poll()
             
             if tts_poll is not None:
                 print(f"⚠️  TTS service exited with code {tts_poll}")
@@ -67,6 +79,9 @@ def main():
             if script_poll is not None:
                 print(f"⚠️  Script Reader service exited with code {script_poll}")
                 break
+            if tortoise_poll is not None:
+                print(f"⚠️  Tortoise Script Reader service exited with code {tortoise_poll}")
+                break
                 
             time.sleep(1)
             
@@ -75,7 +90,12 @@ def main():
         
     finally:
         # Clean up processes
-        for process, name in [(tts_process, "TTS"), (vc_process, "VC"), (script_process, "Script Reader")]:
+        for process, name in [
+            (tts_process, "TTS"),
+            (vc_process, "VC"),
+            (script_process, "Script Reader"),
+            (tortoise_script_process, "Script Reader (Tortoise)"),
+        ]:
             if process.poll() is None:
                 print(f"Terminating {name} service...")
                 process.terminate()

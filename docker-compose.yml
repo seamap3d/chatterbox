@@ -10,6 +10,7 @@ services:
       - "7860:7860"  # TTS Service
       - "7861:7861"  # Voice Conversion Service
       - "7862:7862"  # Script Reader Service
+      - "7863:7863"  # Script Reader (Tortoise TTS)
     volumes:
       - ./outputs:/app/outputs
       - ./examples:/app/examples
